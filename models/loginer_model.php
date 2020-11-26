@@ -26,6 +26,10 @@ class Loginer_Model
             } else {
                 $data['result'] = "OK";
                 $data['message'] = "Szia " . $resultArray[0]['firstName'] . "!";
+
+                $_SESSION['userId'] = $resultArray[0]['id'];
+                $_SESSION['userFirstName'] = $resultArray[0]['firstName'];
+                $_SESSION['userPermission'] = $resultArray[0]['permission'];
             }
         } catch (Exception $e) {
             $data['result'] = "ERROR";
