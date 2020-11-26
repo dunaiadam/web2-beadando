@@ -1,6 +1,12 @@
 <?php
 
+session_start();
+if(! isset($_SESSION['userId'])) $_SESSION['userId'] = 0;
+if(! isset($_SESSION['userFirstName'])) $_SESSION['userFirstName'] = "";
+if(! isset($_SESSION['userPermission'])) $_SESSION['userPermission'] = "1__";
+
 include(SERVER_ROOT . 'includes/database.inc.php');
+include(SERVER_ROOT . 'includes/menu.inc.php');
 
 $page = "login";
 $request = $_SERVER['QUERY_STRING'];

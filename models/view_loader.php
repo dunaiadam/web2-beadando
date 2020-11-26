@@ -9,6 +9,8 @@ class View_Loader
     {
         $file = SERVER_ROOT . 'views/' . strtolower($viewName) . '.php';
         if (file_exists($file)) {
+            $page = explode('_', $viewName);
+            $this->data['viewName'] = $page[0];
             $this->render = $file;
         }
     }
