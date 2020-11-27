@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap-env="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://localhost/beadando/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://localhost/beadando/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://localhost/beadando/soap/">
+      <xsd:complexType name="News">
+        <xsd:all>
+          <xsd:element name="errorCode" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+          <xsd:element name="message" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+          <xsd:element name="news" type="tns:NewsItemArray" minOccurs="0" maxOccurs="1"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="NewsItem">
+        <xsd:all>
+          <xsd:element name="title" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+          <xsd:element name="message" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+          <xsd:element name="firstName" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+          <xsd:element name="date" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getNewsRequest"/>
+  <wsdl:message name="getNewsResponse">
+    <wsdl:part name="getNewsReturn" type="tns:News"/>
+  </wsdl:message>
+  <wsdl:portType name="NewsClassPortType">
+    <wsdl:operation name="getNews">
+      <wsdl:documentation/>
+      <wsdl:input message="tns:getNewsRequest"/>
+      <wsdl:output message="tns:getNewsResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NewsClassBinding" type="tns:NewsClassPortType">
+    <soap-env:binding xmlns="http://schemas.xmlsoap.org/wsdl/soap/" style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getNews">
+      <soap-env:operation xmlns="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://localhost/beadando/soap/server.php?method=getNews" style="rpc"/>
+      <wsdl:input>
+        <soap-env:body xmlns="http://schemas.xmlsoap.org/wsdl/soap/" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap-env:body xmlns="http://schemas.xmlsoap.org/wsdl/soap/" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NewsClass">
+    <wsdl:documentation/>
+    <wsdl:port name="NewsClassPort" binding="tns:NewsClassBinding">
+      <soap-env:address location="http://localhost/beadando/soap/server.php"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
