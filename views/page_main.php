@@ -21,15 +21,22 @@
             <?php
             Menu::setMenu();
             foreach (Menu::$menu as $pageKey => $pageValue) {
-                if ($pageKey == $viewData['viewName']) {
-                    echo '<li class="nav-item active">
-                              <a class="nav-link" href="' . $pageKey . '">' . $pageValue[0] . '</a>
-                              </li>';
+                $subMenu = Menu::getSubMenu($pageValue[0]);
+                if (!empty($subMenu)) {
+                    echo '<li class="nav-item dropdown">' .
+                        '<a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . $pageValue[1] . '</a>' .
+                        '<div class="dropdown-menu">';
+                    foreach ($subMenu as $subMenuKey => $subMenuValue) {
+                        echo '<a class="dropdown-item" href="' . $subMenuKey . '">' . $subMenuValue[0] . '</a>';
+                    }
+                    echo '</div>';
                 } else {
-                    echo '<li class="nav-item">
-                              <a class="nav-link" href="' . $pageKey . '">' . $pageValue[0] . '</a>
-                              </li>';
+                    echo '<li class="nav-item ';
+                    echo ($pageKey == $viewData['viewName']) ? "active" : "";
+                    echo '"><a class="nav-link" href="' . $pageKey . '">' . $pageValue[1] . '</a>';
                 }
+
+                echo '</li>';
             }
             ?>
         </ul>
