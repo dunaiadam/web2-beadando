@@ -8,7 +8,12 @@ if(! isset($_SESSION['userPermission'])) $_SESSION['userPermission'] = "1__";
 include(SERVER_ROOT . 'includes/database.inc.php');
 include(SERVER_ROOT . 'includes/menu.inc.php');
 
-$page = "login";
+if (isset($_SESSION['userId']) && $_SESSION['userId'] != 0) {
+    $page = "news";
+} else {
+    $page = "login";
+}
+
 $request = $_SERVER['QUERY_STRING'];
 $vars = array();
 
